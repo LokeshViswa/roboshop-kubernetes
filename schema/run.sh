@@ -12,5 +12,5 @@ if [ $SCHEMA_TYPE == "mongodb" ]; then
   curl -L -O  https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem
   mongo --ssl --host ${DOCDB_ENDPOINT} --sslCAFile rds-combined-ca-bundle.pem --username ${DOCDB_USER}  --password ${DOCDB_PASS} < /code/schema/$COMPONENT.js
 elif [ $SCHEMA_TYPE == "mysql" ]; then
-  mysql -u${MYSQL_USER} -p${MYSQL_PASS} < /code/schema/${COMPONENT}.sql
+  mysql -h ${DB_HOST} -u${DB_USER} -p${DB_PASS} < /code/schema/${COMPONENT}.sql
 fi
