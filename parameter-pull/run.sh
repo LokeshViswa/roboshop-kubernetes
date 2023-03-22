@@ -1,5 +1,7 @@
-set -e 
+set -e
 aws ssm describe-parameters --region us-east-1 --query "Parameters[*].Name" | xargs -n1  |sed -e 's/,//' | grep ${ENV}.${COMPONENT} >/parameter-store/names
+
+sleep 100000
 
 for param in `cat /parameter-store/names`; do
   VALUE=$(aws ssm get-parameters --region us-east-1 --names $param  --with-decryption --query Parameters[0].Value | sed 's/"//g'  )
