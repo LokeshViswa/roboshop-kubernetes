@@ -1,5 +1,5 @@
 set -e
-sleep 100000
+
 aws ssm describe-parameters --region us-east-1 --query "Parameters[*].Name" | xargs -n1  |sed -e 's/,//' | grep ${ENV}.${COMPONENT} >/parameter-store/names
 
 
